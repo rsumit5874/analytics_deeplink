@@ -1,9 +1,9 @@
-import 'package:analytics_deeplink/tags_pages.dart';
+import 'package:analytics_deeplink/screen/firebase_analytics/tags_pages.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+import '../../main.dart';
 
 class TestAnalytics extends StatefulWidget {
   const TestAnalytics({Key? key}) : super(key: key);

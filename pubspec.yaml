@@ -36,6 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_analytics: ^9.0.3
   firebase_crashlytics: ^2.4.3
+  # Using in app link
+  uni_links: ^0.5.1
+  webview_flutter: ^3.0.0
+  whatsapp_unilink: ^2.0.0
+  url_launcher: ^6.0.17
 
 
 dev_dependencies:
