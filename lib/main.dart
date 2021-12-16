@@ -1,58 +1,34 @@
 import 'dart:async';
 
-import 'package:analytics_deeplink/text_analytics.dart';
+import 'package:analytics_deeplink/home_page.dart';
+import 'package:analytics_deeplink/test_analytics.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// Toggle this to cause an async error to be thrown during initialization
-// and to test that runZonedGuarded() catches the error
-const _kShouldTestAsyncErrorOnInit = false;
-
-// Toggle this for testing Crashlytics in your app locally.
-const _kTestingCrashlytics = true;
-
-const _kTestAnalytics = true;
-
 Future<void> main() async {
-  // await runZonedGuarded(() async {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   await Firebase.initializeApp(
-  //       options: const FirebaseOptions(
-  //         apiKey:
-  //             'AAAAYSxDh10:APA91bFpukgdpzew1hSFh6NAuognAiTp0xDZqSRJXBoqG-EVhu_JTEkAydROLCdm9t5uqfrv0LfJUZDLc_kzykpm8TXF_0zLXzkjc0xazkmNRVgNi-mdsLIjO6NsacpzsJht8LhyaOFU',
-  //         authDomain: 'deeplink-analytics.firebaseapp.com	',
-  //         databaseURL: 'https://deeplink-analytics-default-rtdb.firebaseio.com',
-  //         projectId: 'deeplink-analytics',
-  //         storageBucket: 'deeplink-analytics.appspot.com',
-  //         messagingSenderId: '417354450781',
-  //         appId: '1:417354450781:android:98f53bfc62686cff7c4ab4',
-  //         measurementId: '',
-  //       ),
-  //       name: 'primary-app');
-  //   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  //   runApp(const MyApp());
-  // }, (error, stackTrace) {
-  //   FirebaseCrashlytics.instance.recordError(error, stackTrace);
-  // });
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey:
-        'AAAAYSxDh10:APA91bFpukgdpzew1hSFh6NAuognAiTp0xDZqSRJXBoqG-EVhu_JTEkAydROLCdm9t5uqfrv0LfJUZDLc_kzykpm8TXF_0zLXzkjc0xazkmNRVgNi-mdsLIjO6NsacpzsJht8LhyaOFU',
-        authDomain: 'deeplink-analytics.firebaseapp.com	',
-        databaseURL: 'https://deeplink-analytics-default-rtdb.firebaseio.com',
-        projectId: 'deeplink-analytics',
-        storageBucket: 'deeplink-analytics.appspot.com',
-        messagingSenderId: '417354450781',
-        appId: '1:417354450781:android:98f53bfc62686cff7c4ab4',
-        measurementId: '',
-      ),
-      name: 'primary-app');
-  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  runApp(const MyApp());
+  await runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey:
+              'AAAAYSxDh10:APA91bFpukgdpzew1hSFh6NAuognAiTp0xDZqSRJXBoqG-EVhu_JTEkAydROLCdm9t5uqfrv0LfJUZDLc_kzykpm8TXF_0zLXzkjc0xazkmNRVgNi-mdsLIjO6NsacpzsJht8LhyaOFU',
+          authDomain: 'deeplink-analytics.firebaseapp.com	',
+          databaseURL: 'https://deeplink-analytics-default-rtdb.firebaseio.com',
+          projectId: 'deeplink-analytics',
+          storageBucket: 'deeplink-analytics.appspot.com',
+          messagingSenderId: '417354450781',
+          appId: '1:417354450781:android:98f53bfc62686cff7c4ab4',
+          measurementId: '',
+        ),
+        name: 'primary-app');
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    runApp(const MyApp());
+  }, (error, stackTrace) {
+    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -64,12 +40,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Firebase Analytics Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       navigatorObservers: <NavigatorObserver>[observer],
-      home: const TextAnalytics(),
+      home: const HomePage(),
     );
   }
 }

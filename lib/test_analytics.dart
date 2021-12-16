@@ -5,21 +5,21 @@ import 'package:flutter/material.dart';
 
 import 'main.dart';
 
-class TextAnalytics extends StatefulWidget {
-  const TextAnalytics({Key? key}) : super(key: key);
+class TestAnalytics extends StatefulWidget {
+  const TestAnalytics({Key? key}) : super(key: key);
 
   @override
-  _TextAnalyticsState createState() => _TextAnalyticsState();
+  _TestAnalyticsState createState() => _TestAnalyticsState();
 }
 
-class _TextAnalyticsState extends State<TextAnalytics> {
+class _TestAnalyticsState extends State<TestAnalytics> {
   String _message = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Text Analytics'),
+        title: const Text('Test Analytics'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -118,7 +118,7 @@ class _TextAnalyticsState extends State<TextAnalytics> {
             MaterialPageRoute<TabsPage>(
               settings: const RouteSettings(name: TabsPage.routeName),
               builder: (BuildContext context) {
-                return TabsPage();
+                return const TabsPage();
               },
             ),
           );
