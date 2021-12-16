@@ -5,10 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-class TabsPage extends StatefulWidget {
-  TabsPage(this.observer, {Key? key}) : super(key: key);
+import 'main.dart';
 
-  final FirebaseAnalyticsObserver observer;
+class TabsPage extends StatefulWidget {
+  const TabsPage({Key? key}) : super(key: key);
 
   static const String routeName = '/tab';
 
@@ -16,11 +16,9 @@ class TabsPage extends StatefulWidget {
   State<StatefulWidget> createState() => _TabsPageState();
 }
 
+// ignore: prefer_mixin
 class _TabsPageState extends State<TabsPage>
-    with
-        SingleTickerProviderStateMixin,
-    // ignore: prefer_mixin
-        RouteAware {
+    with SingleTickerProviderStateMixin, RouteAware {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   late final TabController _controller = TabController(
@@ -38,12 +36,12 @@ class _TabsPageState extends State<TabsPage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.observer.subscribe(this, ModalRoute.of(context)! as PageRoute);
+    MyApp.observer.subscribe(this, ModalRoute.of(context)! as PageRoute);
   }
 
   @override
   void dispose() {
-    widget.observer.unsubscribe(this);
+    MyApp.observer.unsubscribe(this);
     super.dispose();
   }
 
