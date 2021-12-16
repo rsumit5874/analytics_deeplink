@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:analytics_deeplink/screen/app_link/app_link.dart';
 import 'package:analytics_deeplink/screen/app_link/webview_demo.dart';
+import 'package:analytics_deeplink/screen/deep_link/deep_link.dart';
 import 'package:analytics_deeplink/screen/firebase_analytics/test_analytics.dart';
 import 'package:analytics_deeplink/screen/firebase_crashlytics/test_crashlytics.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +23,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   StreamSubscription? _sub;
-
   final _scaffoldKey = GlobalKey();
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
   @override
   void initState() {
@@ -31,6 +33,20 @@ class _HomePageState extends State<HomePage> {
     _handleInitialUri();
   }
 
+  //dynamic link
+  Future<void> initDynamicLinks() async {
+    dynamicLinks.onLink.listen((dynamicLinkData) {
+      _showSnackBar(dynamicLinkData.link.path);
+      Navigator.pushNamed(context, dynamicLinkData.link.path);
+    }).onError((error) {
+      print('onLink error');
+      print(error.message);
+    });
+  }
+
+  //--------------
+
+  //App link
   void _handleIncomingLinks() {
     if (!kIsWeb) {
       // It will handle app links while the app is already started - be it in
@@ -70,6 +86,8 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
+
+  //-----
 
   @override
   void dispose() {
@@ -133,6 +151,20 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => const AppLink()));
               },
               child: const Text('App Link',
+                  style: TextStyle(fontSize: 16, color: Colors.white)),
+            ),
+            MaterialButton(
+              color: Colors.blue,
+              height: 50,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(color: Colors.amber)),
+              minWidth: MediaQuery.of(context).size.width,
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const DeepLink()));
+              },
+              child: const Text('Deep Link',
                   style: TextStyle(fontSize: 16, color: Colors.white)),
             ),
           ],
