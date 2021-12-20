@@ -43,6 +43,8 @@ dependencies:
   url_launcher: ^6.0.17
   #deep link firebase
   firebase_dynamic_links: ^4.0.2
+  new_version: ^0.2.0
+
 
 
 

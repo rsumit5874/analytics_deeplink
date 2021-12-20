@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:new_version/new_version.dart';
 import 'package:uni_links/uni_links.dart';
 
 bool _initialUriIsHandled = false;
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _handleIncomingLinks();
     _handleInitialUri();
+    _checkVersion();
   }
 
   //dynamic link
@@ -115,7 +117,10 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery.of(context).size.width,
+              minWidth: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               child: const Text(
                 'Test Analytics',
                 style: TextStyle(fontSize: 16, color: Colors.white),
@@ -131,7 +136,10 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery.of(context).size.width,
+              minWidth: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const TestCrashlytics()));
@@ -145,7 +153,10 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery.of(context).size.width,
+              minWidth: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const AppLink()));
@@ -159,7 +170,10 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery.of(context).size.width,
+              minWidth: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const DeepLink()));
@@ -182,5 +196,24 @@ class _HomePageState extends State<HomePage> {
         ));
       }
     });
+  }
+
+  void _checkVersion() async {
+    final newVersion = NewVersion(
+      androidId: "com.snapchat.android",
+    );
+    final status = await newVersion.getVersionStatus();
+    newVersion.showUpdateDialog(
+      context: context,
+      versionStatus: status!,
+      dialogTitle: "UPDATE!!!",
+      dismissButtonText: "Skip",
+      dialogText: "Please update the app from " + status.localVersion + " to " +
+          status.storeVersion,
+      dismissAction: () {
+        SystemNavigator.pop();
+      },
+      updateButtonText: "Lets update",
+    );
   }
 }
