@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_analytics: ^9.0.3
   firebase_crashlytics: ^2.4.3
+  device_info: ^2.0.3
   # Using in app link
   uni_links: ^0.5.1
   webview_flutter: ^3.0.0

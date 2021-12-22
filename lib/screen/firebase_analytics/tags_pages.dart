@@ -36,12 +36,12 @@ class _TabsPageState extends State<TabsPage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    MyApp.observer.subscribe(this, ModalRoute.of(context)! as PageRoute);
+    // MyApp.observer.subscribe(this, ModalRoute.of(context)! as PageRoute);
   }
 
   @override
   void dispose() {
-    MyApp.observer.unsubscribe(this);
+    // MyApp.observer.unsubscribe(this);
     super.dispose();
   }
 

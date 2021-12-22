@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:analytics_deeplink/home_page.dart';
+import 'package:analytics_deeplink/screen/firebase_analytics/analytics_home/analytics_home.dart';
 import 'package:analytics_deeplink/screen/firebase_analytics/test_analytics.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,8 +37,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       navigatorObservers: <NavigatorObserver>[observer],
-      home: const HomePage(),
+      home: const AnalyticsHome(),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:analytics_deeplink/screen/app_link/app_link.dart';
 import 'package:analytics_deeplink/screen/app_link/webview_demo.dart';
 import 'package:analytics_deeplink/screen/deep_link/deep_link.dart';
+import 'package:analytics_deeplink/screen/firebase_analytics/analytics_home/analytics_demo.dart';
 import 'package:analytics_deeplink/screen/firebase_analytics/test_analytics.dart';
 import 'package:analytics_deeplink/screen/firebase_crashlytics/test_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _handleIncomingLinks();
     _handleInitialUri();
-    _checkVersion();
+    // _checkVersion();
   }
 
   //dynamic link
@@ -117,17 +118,14 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              minWidth: MediaQuery.of(context).size.width,
               child: const Text(
                 'Test Analytics',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const TestAnalytics()));
+                    builder: (context) => const AnalyticsDemoPage()));
               },
             ),
             MaterialButton(
@@ -136,10 +134,7 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              minWidth: MediaQuery.of(context).size.width,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const TestCrashlytics()));
@@ -153,10 +148,7 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              minWidth: MediaQuery.of(context).size.width,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const AppLink()));
@@ -170,10 +162,7 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   side: const BorderSide(color: Colors.amber)),
-              minWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              minWidth: MediaQuery.of(context).size.width,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const DeepLink()));
@@ -208,7 +197,9 @@ class _HomePageState extends State<HomePage> {
       versionStatus: status!,
       dialogTitle: "UPDATE!!!",
       dismissButtonText: "Skip",
-      dialogText: "Please update the app from " + status.localVersion + " to " +
+      dialogText: "Please update the app from " +
+          status.localVersion +
+          " to " +
           status.storeVersion,
       dismissAction: () {
         SystemNavigator.pop();

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:analytics_deeplink/screen/firebase_analytics/tags_pages.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +18,18 @@ class _TestAnalyticsState extends State<TestAnalytics> {
   String _message = '';
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+  void update() async {
+    _testSetUserId();
+
+    await MyApp.analytics
+        .setUserProperty(name: 'experience_level', value: 'Expert');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -26,6 +40,37 @@ class _TestAnalyticsState extends State<TestAnalytics> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            MaterialButton(
+              color: Colors.blue,
+              height: 50,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(color: Colors.amber)),
+              minWidth: MediaQuery.of(context).size.width,
+              child: const Text(
+                'My Text',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+              onPressed: () async {
+                var random = Random();
+                int randomNumber1 = random.nextInt(10);
+                int randomNumber2 = random.nextInt(10);
+                int sum = randomNumber1 + randomNumber2;
+
+
+                await MyApp.analytics.logEvent(
+                  name: 'roll',
+                  parameters: <String, dynamic>{
+                    'sum': sum.toDouble(),
+                    'doubles':
+                        randomNumber1 == randomNumber2 ? 'true' : 'false',
+                  },
+                );
+              },
+            ),
+            const SizedBox(
+              height: 50,
+            ),
             MaterialButton(
               color: Colors.blue,
               height: 50,
@@ -128,6 +173,11 @@ class _TestAnalyticsState extends State<TestAnalytics> {
     );
   }
 
+  Future<void> updateExperienceLevel(String experienceLevel) async {
+    await MyApp.analytics
+        .setUserProperty(name: 'experience_level', value: experienceLevel);
+  }
+
   void setMessage(String message) {
     setState(() {
       _message = message;
@@ -152,7 +202,8 @@ class _TestAnalyticsState extends State<TestAnalytics> {
   }
 
   Future<void> _testSetUserId() async {
-    await MyApp.analytics.setUserId(id: 'some-user');
+    await MyApp.analytics.setUserId(
+        id: '1234512345', callOptions: AnalyticsCallOptions(global: false));
     setMessage('setUserId succeeded');
   }
 
