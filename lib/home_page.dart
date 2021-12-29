@@ -6,6 +6,7 @@ import 'package:analytics_deeplink/screen/deep_link/deep_link.dart';
 import 'package:analytics_deeplink/screen/firebase_analytics/analytics_home/analytics_demo.dart';
 import 'package:analytics_deeplink/screen/firebase_analytics/test_analytics.dart';
 import 'package:analytics_deeplink/screen/firebase_crashlytics/test_crashlytics.dart';
+import 'package:analytics_deeplink/screen/webview/webview_page.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -168,6 +169,20 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => const DeepLink()));
               },
               child: const Text('Deep Link',
+                  style: TextStyle(fontSize: 16, color: Colors.white)),
+            ),
+            MaterialButton(
+              color: Colors.blue,
+              height: 50,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(color: Colors.amber)),
+              minWidth: MediaQuery.of(context).size.width,
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => WebViewExample()));
+              },
+              child: const Text('WebView Exe',
                   style: TextStyle(fontSize: 16, color: Colors.white)),
             ),
           ],

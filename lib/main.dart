@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       navigatorObservers: <NavigatorObserver>[observer],
-      home: const AnalyticsHome(),
+      home: const HomePage(),
     );
   }
 }
